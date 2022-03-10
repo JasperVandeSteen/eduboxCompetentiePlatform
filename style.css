@@ -1,0 +1,259 @@
+* {
+    font-family: forma-djr-text, sans-serif;
+    font-style: normal;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0 5%;
+}
+
+nav {
+    margin: 2% 5% 0;
+}
+
+nav h2 {
+    margin: 0;
+}
+
+header {
+    margin: 1.5% 0 0 5%;
+    height: 5em;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main {
+    margin: 5%;
+    height: fit-content;
+}
+
+h1 {
+    display: inline-block;
+    padding: 0.2em;
+
+    font-family: forma-djr-display, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+
+    position: sticky;
+    top: 10px;
+
+    background-color: #3462AC;
+    color: white;
+}
+
+h2 {
+    font-family: forma-djr-display, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+
+    color: #3462AC;
+    font-size: 3em;
+}
+
+h4 {
+    color: #EA5057;
+}
+
+p {
+    font-weight: 400;
+}
+
+#logo {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+
+    width: 7vw;
+    height: 7vh;
+    margin-top: 1%;
+}
+
+#backToTop {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+
+    display: none;
+}
+
+#backToTop p {
+    width: 100%;
+    background-color: #3FA535;
+    color: white;
+    padding: 6%;
+
+    cursor: pointer;
+}
+
+.menu {
+    height: 60%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    /* border-radius: 10px; */
+
+    background-color: #F3F3F3;
+}
+
+#leftM {
+    width: fit-content;
+}
+
+#rightM {
+    width: 20%;
+
+    border: none;
+    border-right: 15px solid #F3F3F3;
+    border-radius: 0;
+    font-size: large;
+    font-weight: bold;
+    padding: 0 1%;
+    cursor: pointer;
+}
+
+.menuItem {
+    padding: 2.5% 8%;
+    width: 160px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* border-radius: 10px; */
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease-out;
+}
+
+.menuItem:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.rightItem {
+    width: 50%;
+    height: 50%;
+    margin: 0 1%;
+    padding: 2.5%;
+}
+
+.selected {
+    background-color: #3462AC;
+    color: white;
+
+    transition: 0.2s ease-out;
+}
+
+.selected:hover {
+    background-color: #3462AC;
+}
+
+.hide {
+    display: none;
+}
+
+.blue {
+    background-color: #3462AC;
+    color: white;
+
+    transition: 0.2s ease-out;
+}
+
+.red {
+    background-color: #EA5057;
+    color: white;
+
+    transition: 0.2s ease-out;
+}
+
+.green {
+    background-color: #3FA535;
+    color: white;
+
+    transition: 0.2s ease-out;
+}
+
+/*////////////////////////////////////////////////////////////////*/
+
+.compGroep {
+    margin-bottom: 5%;
+}
+
+.competenties {
+    display: flex;
+    flex-direction: column;
+}
+
+.comp {
+    width: 65%;
+    padding: 2%;
+    margin-bottom: 2%;
+
+    box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.171);
+}
+
+.comp p {
+    margin: 0;
+    width: 65%;
+    font-size: 1.1rem;
+}
+
+#number {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #3FA535;
+}
+
+.readMoreLess {
+    margin: 0 0 -1% 0;
+
+    font-size: 1.15rem;
+    font-weight: bold;
+    text-align: right;
+
+    cursor: pointer;
+}
+
+.open {
+    margin-top: 5%;
+    display: none;
+}
+
+.infoBubblesAndClose {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 3%;
+}
+
+.infoBubbles {
+    width: 80%;
+    display: flex;
+    gap: 5%;
+}
+
+.bubble {
+    background-color: #3462AC;
+    color: white;
+
+    padding: 1%;
+}
+
+.bubbleGroen {
+    background-color: #3FA535;
+    color: white;
+
+    padding: 1%;
+}

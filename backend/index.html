@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="backScript.js"></script>
+    <link rel="icon" type="image/svg" href="../resources/images/icon.svg">
+    <title>Voeg een Edubox toe</title>
+</head>
+
+<body>
+    <div id="loading">
+        <img src="../resources/images/loading.gif" alt="loading">
+        <h3>Competenties worden ingeladen...</h3>
+    </div>
+
+    <main>
+        <h1>EDUboxen</h1>
+        <ol id="links">
+        </ol>
+    </main>
+
+    <section id="inputPrompt">
+        <div id="newEDUform">
+            <div>
+                <h2>Voeg een nieuwe EDUbox toe</h2>
+                <form id="start">
+                    <label for="title">Titel:</label>
+                    <input type="text" name="title" id="title">
+                    <button id="submit" type="submit">Start</button>
+                </form>
+            </div>
+            <div>
+                <h2>Pas een bestaande EDUbox aan</h2>
+                <div id="dataList"></div>
+            </div>
+        </div>
+        <div class="nav" id="nav">
+            <h2 id="titelDisplay"></h2>
+            <div id="actionBtns">
+                <button id="nameSwitch">Andere naam</button>
+                <button id="cancel">Annuleren</button>
+                <button id="delete">Verwijderen</button>
+            </div>
+
+            <div id="graden">
+                <button class="Bluebtn" id="eerste">1ste graad</button>
+                <button class="Bluebtn" id="tweede">2de graad</button>
+                <button class="Bluebtn" id="derde">3de graad</button>
+            </div>
+        </div>
+        <form id="zoeken">
+            <input type="text" name="zoek" id="search" placeholder="Zoek..">
+        </form>
+        <div id="compForm">
+            <table id="compTable"></table>
+            <button id="addCol">+</button>
+        </div>
+    </section>
+    <button id="addBtn">Voeg Toe</button>
+</body>
+<script>
+    let data = [];
+    let links;
+    let selectedData = [];
+    let selectedComps = [];
+
+    let addBtn = document.getElementById("addBtn");
+    let compForm = document.getElementById("compForm");
+    let title = document.getElementById("title");
+    let start = document.getElementById("start");
+
+    fetch("../data.json")
+        .then(response => {
+            return response.json();
+        })
+        .then(jsondata => {
+            jsondata.forEach(element => {
+                let count = (element.code.match(new RegExp("\\.", "g")) || []).length;
+                if (count < 2) {
+                    data.push(element);
+                }
+            });
+        });
+
+    fetch("../links.json")
+        .then(response => {
+            return response.json();
+        })
+        .then(jsondata => {
+            links = jsondata;
+        });
+
+    function deleteCol(col) {
+        let elements = document.getElementsByClassName(col);
+        for (let i = elements.length - 1; i >= 0; i--) {
+            elements[i].parentNode.removeChild(elements[i]);
+        }
+
+        selectedData.forEach(element => {
+            let j = 0;
+            element.Hoofdstukken.forEach(hoofdstuk => {
+                if (hoofdstuk == col) {
+                    element.Hoofdstukken.splice(j, 1);
+                }
+                j++;
+            });
+        });
+        checkSelectedData();
+        console.log(selectedData);
+    }
+
+    function checkSelectedData() {
+        let i = 0;
+        let removeIndexes = [];
+        selectedData.forEach(element => {
+            if (element.Hoofdstukken.length == 0) {
+                removeIndexes.push(i);
+            }
+            i++;
+        });
+        for (var j = removeIndexes.length - 1; j >= 0; j--) {
+            selectedData.splice(removeIndexes[i], 1);
+            selectedComps.splice(removeIndexes[i], 1);
+        }
+    }
+
+    function addOrDeleteCompetentie(state, col, comp) {
+        if (state = 1) {
+            if (!selectedComps.includes(comp)) {
+                let sleutelComp;
+                let doelzin;
+                let finaliteit;
+                let infoHtmlString = `<u>Met inbegrip van kennis</u><br>`;
+
+
+                ///////////////////////////////////////////////////////////////////////////////
+                //
+                //      DATA PRESENCE HANDLERS --> IF DATA IS PRESENT, THEN ELEMENT IS CREATED
+                //
+                ///////////////////////////////////////////////////////////////////////////////
+                if ("vlaamse_sleutelcompetentie" in data[comp].onderwijsdoelenset) {
+                    sleutelComp = data[comp].onderwijsdoelenset.vlaamse_sleutelcompetentie.korte_naam;
+                } else {
+                    sleutelComp = data[comp].onderwijsdoelenset.wetenschapsdomein.korte_naam;
+                }
+                if (data[comp].omschrijving.includes("<p>")) {
+                    doelzin = data[comp].omschrijving.slice(3, -1);
+                } else {
+                    doelzin = data[comp].omschrijving;
+                }
+                if (data[comp].onderwijsdoelenset.onderwijsstructuur.graad != "1ste graad") {
+                    finaliteit = data[comp].onderwijsdoelenset.onderwijsstructuur.finaliteit;
+                } else {
+                    finaliteit = data[comp].onderwijsdoelenset.onderwijsstructuur.stroom;
+                }
+
+                if (data[comp].feitenkennis) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;"><b>Feitenkennis: </b> ${data[comp].feitenkennis}</p>
+                    `;
+                }
+                if (data[comp].conceptuele_kennis) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;"><b>Conceptuele kennis: </b> ${data[comp].conceptuele_kennis}</p>
+                    `;
+                }
+                if (data[comp].procedurele_kennis) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;"><b>Procedurele kennis: </b> ${data[comp].procedurele_kennis}</p>
+                    `;
+                }
+
+                infoHtmlString += `<p><u>Met inbegrip van context</u></p><br>`;
+                if (data[comp].context) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;">${data[comp].context}</p>
+                    `;
+                }
+
+                infoHtmlString += `<p><u>Met inbegrip van tekst kenmerken</u></p><br>`;
+                if (data[comp].tekstkenmerken) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;">${data[comp].tekstkenmerken}</p>
+                    `;
+                }
+
+                infoHtmlString += `<p><u>Met inbegrip van dimensies eindterm</u></p><br>`;
+                if (data[comp].cognitieve_dimensie) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;"><b>Cognitieve dimensie: </b> ${data[comp].cognitieve_dimensie}</p>
+                    `;
+                }
+                if (data[comp].affectieve_dimensie) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;"><b>Affectieve dimensie: </b> ${data[comp].affectieve_dimensie}</p>
+                    `;
+                }
+                if (data[comp].psychomotorische_dimensie) {
+                    infoHtmlString += `
+                        <p style="margin-left:2%;"><b>Psychomotorische dimensie: </b> ${data[comp].psychomotorische_dimensie}</p>
+                    `;
+                }
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                let obj = {
+                    Id: comp,
+                    Graad: data[comp].onderwijsdoelenset.onderwijsstructuur.graad,
+                    Finaliteit: finaliteit,
+                    Sleutelcompetentie: sleutelComp,
+                    Doelzin: data[comp].code + " " + doelzin,
+                    Hoofdstukken: [col],
+                    UitlegString: infoHtmlString
+                };
+                selectedData.push(obj);
+                selectedComps.push(comp);
+            } else {
+                selectedData.forEach(element => {
+                    if (element.Id == comp) {
+                        element.Hoofdstukken.push(col);
+                    }
+                });
+            }
+        } else if (state = 0) {
+            selectedData.forEach(element => {
+                if (element.Id == comp) {
+                    let j = 0;
+                    element.Hoofdstukken.forEach(hoofdstuk => {
+                        if (hoofdstuk == col) {
+                            element.Hoofdstukken.splice(j, 1);
+                        }
+                        j++;
+                    });
+                }
+            });
+        }
+        checkSelectedData();
+    }
+
+    function checkOrUncheckComp(col, comp) {
+        if (document.getElementById("check" + comp + col).checked) {
+            document.getElementById("check" + comp + col).setAttribute("checked", true)
+            addOrDeleteCompetentie(1, col, comp)
+        } else if (!document.getElementById("check" + comp + col).checked) {
+            document.getElementById("check" + comp + col).checked = false;
+            document.getElementById("check" + comp + col).removeAttribute("checked");
+            addOrDeleteCompetentie(0, col, comp)
+        }
+        console.log(selectedData);
+    }
+
+    function checkForUpdate() {
+        let existingEDUbox;
+        links.forEach(link => {
+            if (link.title == title.value) {
+                existingEDUbox = link.title;
+            }
+        });
+
+        if (existingEDUbox != undefined) {
+            // fetch("../backend/data/" + existingEDUbox + ".json")
+            //     .then(response => {
+            //         return response.json();
+            //     })
+            //     .then(jsondata => {
+            //         updateData(jsondata);
+            //     });
+
+            fetch("cultuurData.json")
+                .then(response => {
+                    return response.json();
+                })
+                .then(jsondata => {
+                    updateData(jsondata);
+                });
+        }
+    }
+
+    function updateData(passedData) {
+        console.log(passedData);
+        passedData.forEach(comp => {
+            comp.Hoofdstukken.forEach(hs => {
+                addOrDeleteCompetentie(1, hs, comp.Id);
+            });
+        });
+        console.log("Updated selected data with previous values");
+        console.log(selectedData);
+    }
+
+    start.addEventListener('submit', (e) => {
+        e.preventDefault();
+        checkForUpdate();
+    });
+
+    function launchForm(passedTitle) {
+        title.value = passedTitle;
+        document.getElementById("submit").click();
+    }
+
+    addBtn.addEventListener('click', (e) => {
+        let title = document.getElementById("title").value
+        if (confirm("Wil je met deze data de nieuwe EDUbox maken?") == true) {
+            // console.log(JSON.stringify(selectedData));
+            fetch('http://localhost:3000/api/addEdubox', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    selectedData,
+                    title
+                })
+            });
+        }
+    });
+</script>
+
+</html>
