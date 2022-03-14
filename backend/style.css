@@ -6,7 +6,7 @@
 
 body {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     margin: 1%;
 }
@@ -136,8 +136,9 @@ main h1 {
 }
 
 #inputPrompt {
-    width: 80%;
-    margin: auto;
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
 
     color: white;
     transition: 0.2s ease-in-out;
@@ -147,6 +148,10 @@ main h1 {
     display: none;
     gap: 10%;
     color: black;
+}
+
+#newEDUform div {
+    flex-shrink: 0;
 }
 
 #dataList {

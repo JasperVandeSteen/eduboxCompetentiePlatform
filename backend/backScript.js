@@ -23,7 +23,6 @@ let deleteComp = document.getElementById("delete");
 let addBtn = document.getElementById("addBtn");
 let nameSwitch = document.getElementById("nameSwitch");
 let search = document.getElementById("search");
-let zoekBtn = document.getElementById("zoekBtn");
 
 const passwordKey = "0886a33c90525502556e37fda871aa173b95581a70c58e421aad36224a32b5ae";
 
@@ -265,12 +264,16 @@ function showOrHideForm(state) {
         zoeken.style.display = "block";
         titelDisplay.innerHTML = title.value;
         newEDUform.style.display = "none";
+
+        document.getElementById("inputPrompt").style.display = "block";
     } else if (state == 0) {
         compForm.style.display = "none";
         nav.style.display = "none";
         addBtn.style.display = "none";
         zoeken.style.display = "none";
         newEDUform.style.display = "flex";
+
+        document.getElementById("inputPrompt").style.display = "flex";
     }
 }
 
