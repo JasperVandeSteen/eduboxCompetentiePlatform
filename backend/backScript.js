@@ -113,13 +113,55 @@ fetch("../data.json")
     .then(jsondata => {
         document.getElementById("newEDUform").style.display = "flex";
         document.getElementById("loading").style.display = "none";
+
+        let duplicates = [];
         jsondata.forEach(element => {
             let count = (element.code.match(new RegExp("\\.", "g")) || []).length;
-            if (count < 2) {
+            let duplicate = false;
+
+            let sleutelComp1;
+            let sleutelComp2;
+
+            let finaliteit1;
+            let finaliteit2;
+
+            if ("vlaamse_sleutelcompetentie" in element.onderwijsdoelenset) {
+                sleutelComp1 = element.onderwijsdoelenset.vlaamse_sleutelcompetentie.korte_naam;
+            } else {
+                sleutelComp1 = element.onderwijsdoelenset.wetenschapsdomein.korte_naam;
+            }
+            if (element.onderwijsdoelenset.onderwijsstructuur.graad != "1ste graad") {
+                finaliteit1 = element.onderwijsdoelenset.onderwijsstructuur.finaliteit;
+            } else {
+                finaliteit1 = element.onderwijsdoelenset.onderwijsstructuur.stroom;
+            }
+
+            data.forEach(comp => {
+                if ("vlaamse_sleutelcompetentie" in comp.onderwijsdoelenset) {
+                    sleutelComp2 = comp.onderwijsdoelenset.vlaamse_sleutelcompetentie.korte_naam;
+                } else {
+                    sleutelComp2 = comp.onderwijsdoelenset.wetenschapsdomein.korte_naam;
+                }
+                if (comp.onderwijsdoelenset.onderwijsstructuur.graad != "1ste graad") {
+                    finaliteit2 = comp.onderwijsdoelenset.onderwijsstructuur.finaliteit;
+                } else {
+                    finaliteit2 = comp.onderwijsdoelenset.onderwijsstructuur.stroom;
+                }
+
+                if (sleutelComp1 == sleutelComp2 && comp.omschrijving == element.omschrijving && finaliteit1 == finaliteit2 && comp.onderwijsdoelenset.onderwijsstructuur.graad == element.onderwijsdoelenset.onderwijsstructuur.graad) {
+                    duplicate = true;
+                }
+            });
+
+            if (count < 2 && !data.includes(element) && !duplicate) {
                 data.push(element);
+            } else if (duplicate) {
+                duplicate = false;
+                duplicates.push(element);
             }
         });
         console.log(data);
+        console.log(duplicates);
     });
 
 fetch("../links.json")
