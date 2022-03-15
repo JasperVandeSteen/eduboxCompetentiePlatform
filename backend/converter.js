@@ -143,7 +143,6 @@ async function generateJSONFile(data) {
 async function deleteEduboxFiles(edubox) {
     await fs.unlink(`./data/${edubox}.json`, function (err) {
         if (err) throw err;
-        // if no error, file has been deleted successfully
         console.log('Data file deleted!');
     });
     // await fs.unlink(`../frontend/${edubox}.html`, function (err) {
