@@ -177,7 +177,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up...")
+    res.send("server is up and running...")
 });
 
 app.use('/api', bgRouter);
