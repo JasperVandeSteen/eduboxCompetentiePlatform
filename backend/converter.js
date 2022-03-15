@@ -53,9 +53,9 @@ bgRouter.route('/getLinks')
     });
 
 bgRouter.route('/deleteEdubox')
-    .delete((req, res) => {
+    .delete(async (req, res) => {
         title = req.body.title
-        deleteEduboxFiles(title);
+        await deleteEduboxFiles(title);
         res.send("deleted!");
     });
 
@@ -143,15 +143,15 @@ async function generateJSONFile(data) {
     }
 }
 
-function deleteEduboxFiles(edubox) {
-    fs.unlinkSync(`./data/${edubox}.json`);
-    fs.unlinkSync(`../frontend/${edubox}.html`);
+async function deleteEduboxFiles(edubox) {
+    // fs.unlinkSync(`./data/${edubox}.json`);
+    // fs.unlinkSync(`../frontend/${edubox}.html`);
 
-    // fs.unlink(`./data/${edubox}.json`, function (err) {
-    //     if (err) throw err;
-    //     // if no error, file has been deleted successfully
-    //     console.log('Data file deleted!');
-    // });
+    await fs.unlink(`./data/${edubox}.json`, function (err) {
+        if (err) throw err;
+        // if no error, file has been deleted successfully
+        console.log('Data file deleted!');
+    });
     // fs.unlink(`../frontend/${edubox}.html`, function (err) {
     //     if (err) throw err;
     //     // if no error, file has been deleted successfully
@@ -166,7 +166,7 @@ function deleteEduboxFiles(edubox) {
     });
     // fs.writeFileSync('./links.json', JSON.stringify(json, null, 2));
 
-    fs.writeFile('./links.json', JSON.stringify(json, null, 2), function (err) {
+    await fs.writeFile('./links.json', JSON.stringify(json, null, 2), function (err) {
         if (err) throw err;
         console.log('Links file is updated successfully.');
     });
@@ -225,7 +225,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... (temp4)")
+    res.send("server is up and running... V4.2")
 });
 
 app.use('/api', bgRouter);
