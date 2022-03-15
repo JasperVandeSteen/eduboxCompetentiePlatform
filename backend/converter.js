@@ -30,6 +30,16 @@ bgRouter.route('/addEdubox')
         res.send("done!");
     });
 
+bgRouter.route('/getData')
+    .get((req, res) => {
+        res.send("GET data route exists!");
+    });
+
+bgRouter.route('/getLinks')
+    .get((req, res) => {
+        res.send("GET links route exists!");
+    });
+
 bgRouter.route('/deleteEdubox')
     .delete((req, res) => {
         title = req.body.title
