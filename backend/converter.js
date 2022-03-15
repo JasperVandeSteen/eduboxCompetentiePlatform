@@ -24,9 +24,9 @@ app.use(cors());
 
 bgRouter.route('/addEdubox')
     .post((req, res) => {
-        title = req.body.title
-        generateJSONFile(req.body.selectedData)
-        generateNewLink(title);
+        // title = req.body.title
+        // generateJSONFile(req.body.selectedData)
+        // generateNewLink(title);
         res.send("done!");
     });
 
@@ -189,7 +189,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running...")
+    res.send("server is up and running... (temp)")
 });
 
 app.use('/api', bgRouter);
