@@ -23,10 +23,10 @@ app.use(bodyparser.json({
 app.use(cors());
 
 bgRouter.route('/addEdubox')
-    .post((req, res) => {
+    .post(async (req, res) => {
         title = req.body.title
-        generateJSONFile(req.body.selectedData)
-        generateNewLink(title);
+        await generateJSONFile(req.body.selectedData)
+        await generateNewLink(title);
         res.send("done!");
     });
 
@@ -59,7 +59,7 @@ bgRouter.route('/deleteEdubox')
         res.send("deleted!");
     });
 
-function generateJSONFile(data) {
+async function generateJSONFile(data) {
     try {
         let htmlBody = `
             <!DOCTYPE html>
@@ -130,11 +130,11 @@ function generateJSONFile(data) {
         // fs.writeFileSync(`./data/${title}.json`, JSON.stringify(data));
         // fs.writeFileSync(`../frontend/${title}.html`, htmlBody);
 
-        fs.writeFile(`./data/${title}.json`, JSON.stringify(data), function (err) {
+        await fs.writeFile(`./data/${title}.json`, JSON.stringify(data), function (err) {
             if (err) throw err;
             console.log('Data file is created successfully.');
         });
-        fs.writeFile(`../frontend/${title}.html`, htmlBody, function (err) {
+        await fs.writeFile(`../frontend/${title}.html`, htmlBody, function (err) {
             if (err) throw err;
             console.log('HTML file is created successfully.');
         });
@@ -172,7 +172,7 @@ function deleteEduboxFiles(edubox) {
     });
 }
 
-function generateNewLink(title) {
+async function generateNewLink(title) {
     let duplicate = false;
     let data = fs.readFileSync('./links.json');
     let json = JSON.parse(data);
@@ -190,7 +190,7 @@ function generateNewLink(title) {
         json.push(newLinkObject);
         //fs.writeFileSync('../links.json', JSON.stringify(json));
 
-        fs.writeFile('./links.json', JSON.stringify(json), function (err) {
+        await fs.writeFile('./links.json', JSON.stringify(json), function (err) {
             if (err) throw err;
             console.log('Links file is updated successfully.');
         });
