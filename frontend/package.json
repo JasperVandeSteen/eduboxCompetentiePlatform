@@ -1,0 +1,11 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Competentie platform frontend",
+  "main": "script.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Jasper Van de Steen",
+  "license": "ISC"
+}
