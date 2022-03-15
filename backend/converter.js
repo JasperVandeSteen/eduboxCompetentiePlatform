@@ -127,9 +127,6 @@ async function generateJSONFile(data) {
             </html>
         `;
 
-        // fs.writeFileSync(`./data/${title}.json`, JSON.stringify(data));
-        // fs.writeFileSync(`../frontend/${title}.html`, htmlBody);
-
         await fs.writeFile(`./data/${title}.json`, JSON.stringify(data), function (err) {
             if (err) throw err;
             console.log('Data file is created successfully.');
@@ -144,15 +141,12 @@ async function generateJSONFile(data) {
 }
 
 async function deleteEduboxFiles(edubox) {
-    // fs.unlinkSync(`./data/${edubox}.json`);
-    // fs.unlinkSync(`../frontend/${edubox}.html`);
-
     await fs.unlink(`./data/${edubox}.json`, function (err) {
         if (err) throw err;
         // if no error, file has been deleted successfully
         console.log('Data file deleted!');
     });
-    // fs.unlink(`../frontend/${edubox}.html`, function (err) {
+    // await fs.unlink(`../frontend/${edubox}.html`, function (err) {
     //     if (err) throw err;
     //     // if no error, file has been deleted successfully
     //     console.log('HTML file deleted!');
@@ -164,7 +158,6 @@ async function deleteEduboxFiles(edubox) {
     json = json.filter((comp) => {
         return comp.title !== edubox
     });
-    // fs.writeFileSync('./links.json', JSON.stringify(json, null, 2));
 
     await fs.writeFile('./links.json', JSON.stringify(json, null, 2), function (err) {
         if (err) throw err;
@@ -188,7 +181,6 @@ async function generateNewLink(title) {
             "link": `<li><a href='./${title}.html' target='_blank'>${title}</a></li>`
         }
         json.push(newLinkObject);
-        //fs.writeFileSync('../links.json', JSON.stringify(json));
 
         await fs.writeFile('./links.json', JSON.stringify(json), function (err) {
             if (err) throw err;
@@ -197,7 +189,7 @@ async function generateNewLink(title) {
     }
 }
 
-var j = schedule.scheduleJob('0 0 * * *', function () {
+var j = schedule.scheduleJob('0 0 * * *', async function () {
     console.log('Updating local data storage...');
     const url = "https://onderwijs.api.vlaanderen.be/onderwijsdoelen/onderwijsdoel?versie=2.0";
     fetch(url, {
@@ -212,9 +204,8 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
         .then(resp => resp.json())
         .then(function (jsondata) {
             const newData = jsondata.gegevens.member;
-            // fs.writeFileSync('./data.json', JSON.stringify(newData));
 
-            fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
+            await fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
                 if (err) throw err;
                 console.log('Data file is created successfully.');
             });
@@ -225,7 +216,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... V4.2")
+    res.send("server is up and running... V5.0")
 });
 
 app.use('/api', bgRouter);
