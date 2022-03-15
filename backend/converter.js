@@ -32,12 +32,16 @@ bgRouter.route('/addEdubox')
 
 bgRouter.route('/getData')
     .get((req, res) => {
-        res.send("GET data route exists!");
+        let data = fs.readFileSync('./data.json');
+        let json = JSON.parse(data);
+        res.send(json);
     });
 
 bgRouter.route('/getLinks')
     .get((req, res) => {
-        res.send("GET links route exists!");
+        let data = fs.readFileSync('./links.json');
+        let json = JSON.parse(data);
+        res.send(json);
     });
 
 bgRouter.route('/deleteEdubox')
