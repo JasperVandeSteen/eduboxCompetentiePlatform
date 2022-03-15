@@ -37,9 +37,9 @@ bgRouter.route('/getData')
         res.send(json);
     });
 
-bgRouter.route('/getEdubox:title')
+bgRouter.route('/getEdubox/:title')
     .get((req, res) => {
-        let title = req.title;
+        let title = req.params.title;
         let data = fs.readFileSync('./data/' + title + '.json');
         let json = JSON.parse(data);
         res.send(json);

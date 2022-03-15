@@ -245,7 +245,7 @@ function showOrHideForm(state) {
 
         if (existingEDUbox != undefined) {
             document.getElementById("delete").style.display = "block";
-            fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox:" + existingEDUbox)
+            fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox/" + existingEDUbox)
                 .then(response => {
                     return response.json();
                 })
