@@ -305,7 +305,7 @@
         let title = document.getElementById("title").value
         if (confirm("Wil je met deze data de nieuwe EDUbox maken?") == true) {
             // console.log(JSON.stringify(selectedData));
-            fetch('http://localhost:3000/api/addEdubox', {
+            fetch('https://competentie-platform-backend.herokuapp.com/api/addEdubox', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

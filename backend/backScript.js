@@ -393,7 +393,7 @@ search.addEventListener('input', (e) => {
 deleteComp.addEventListener('click', (e) => {
     e.preventDefault();
     if (confirm("Wil je deze EDUbox verwijderen?") == true) {
-        fetch('http://localhost:3000/api/deleteEdubox', {
+        fetch('https://competentie-platform-backend.herokuapp.com/api/deleteEdubox', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
