@@ -48,8 +48,8 @@ function generateJSONFile(data) {
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>${title}</title>
-                    <link rel="stylesheet" href="style.css">
-                    <script type="module" src="script.js"></script>
+                    <link rel="stylesheet" href="./style.css">
+                    <script type="module" src="./script.js"></script>
                     <link rel="stylesheet" href="https://use.typekit.net/izu2qxl.css">
                     <link rel="stylesheet" href="https://use.typekit.net/izu2qxl.css">
                     <script src="https://kit.fontawesome.com/0cfde2b051.js" crossorigin="anonymous"></script>
@@ -58,7 +58,7 @@ function generateJSONFile(data) {
 
                 <body>
                     <section id="logo">
-                        <img src="resources/images/EDUBOX RGB.svg" alt="Edubox logo">
+                        <img src="./resources/images/EDUBOX RGB.svg" alt="Edubox logo">
                     </section>
 
                     <section id="backToTop">
@@ -105,16 +105,16 @@ function generateJSONFile(data) {
             </html>
         `;
 
-        fs.writeFileSync(`./data/${title}.json`, JSON.stringify(data));
-        fs.writeFileSync(`../${title}.html`, htmlBody);
+        fs.writeFileSync(`../backend/data/${title}.json`, JSON.stringify(data));
+        fs.writeFileSync(`../frontend/${title}.html`, htmlBody);
     } catch (err) {
         console.error(err)
     }
 }
 
 function deleteEduboxFiles(edubox) {
-    fs.unlinkSync(`./data/${edubox}.json`);
-    fs.unlinkSync(`../${edubox}.html`);
+    fs.unlinkSync(`../backend/data/${edubox}.json`);
+    fs.unlinkSync(`../frontend/${edubox}.html`);
 
     let data = fs.readFileSync('../links.json');
     let json = JSON.parse(data);
@@ -137,7 +137,7 @@ function generateNewLink(title) {
     if (!duplicate) {
         let newLinkObject = {
             "title": title,
-            "link": `<li><a href='../${title}.html' target='_blank'>${title}</a></li>`
+            "link": `<li><a href='../frontend/${title}.html' target='_blank'>${title}</a></li>`
         }
         json.push(newLinkObject);
         fs.writeFileSync('../links.json', JSON.stringify(json));
