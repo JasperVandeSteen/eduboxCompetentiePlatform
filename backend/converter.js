@@ -127,8 +127,17 @@ function generateJSONFile(data) {
             </html>
         `;
 
-        fs.writeFileSync(`./data/${title}.json`, JSON.stringify(data));
+        // fs.writeFileSync(`./data/${title}.json`, JSON.stringify(data));
         // fs.writeFileSync(`../frontend/${title}.html`, htmlBody);
+
+        fs.writeFile(`./data/${title}.json`, JSON.stringify(data), function (err) {
+            if (err) throw err;
+            console.log('Data file is created successfully.');
+        });
+        fs.writeFile(`../frontend/${title}.html`, htmlBody, function (err) {
+            if (err) throw err;
+            console.log('HTML file is created successfully.');
+        });
     } catch (err) {
         console.error(err)
     }
@@ -136,14 +145,31 @@ function generateJSONFile(data) {
 
 function deleteEduboxFiles(edubox) {
     fs.unlinkSync(`./data/${edubox}.json`);
-    // fs.unlinkSync(`../frontend/${edubox}.html`);
+    fs.unlinkSync(`../frontend/${edubox}.html`);
+
+    // fs.unlink(`./data/${edubox}.json`, function (err) {
+    //     if (err) throw err;
+    //     // if no error, file has been deleted successfully
+    //     console.log('Data file deleted!');
+    // });
+    // fs.unlink(`../frontend/${edubox}.html`, function (err) {
+    //     if (err) throw err;
+    //     // if no error, file has been deleted successfully
+    //     console.log('HTML file deleted!');
+    // });
+
 
     let data = fs.readFileSync('./links.json');
     let json = JSON.parse(data);
     json = json.filter((comp) => {
         return comp.title !== edubox
     });
-    fs.writeFileSync('./links.json', JSON.stringify(json, null, 2));
+    // fs.writeFileSync('./links.json', JSON.stringify(json, null, 2));
+
+    fs.writeFile('./links.json', JSON.stringify(json, null, 2), function (err) {
+        if (err) throw err;
+        console.log('Links file is updated successfully.');
+    });
 }
 
 function generateNewLink(title) {
@@ -162,7 +188,12 @@ function generateNewLink(title) {
             "link": `<li><a href='./${title}.html' target='_blank'>${title}</a></li>`
         }
         json.push(newLinkObject);
-        fs.writeFileSync('../links.json', JSON.stringify(json));
+        //fs.writeFileSync('../links.json', JSON.stringify(json));
+
+        fs.writeFile('./links.json', JSON.stringify(json), function (err) {
+            if (err) throw err;
+            console.log('Links file is updated successfully.');
+        });
     }
 }
 
@@ -181,7 +212,12 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
         .then(resp => resp.json())
         .then(function (jsondata) {
             const newData = jsondata.gegevens.member;
-            fs.writeFileSync('./data.json', JSON.stringify(newData));
+            // fs.writeFileSync('./data.json', JSON.stringify(newData));
+
+            fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
+                if (err) throw err;
+                console.log('Data file is created successfully.');
+            });
         })
         .catch(function (error) {
             console.log(error);
@@ -189,7 +225,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... (temp2)")
+    res.send("server is up and running... (temp3)")
 });
 
 app.use('/api', bgRouter);
