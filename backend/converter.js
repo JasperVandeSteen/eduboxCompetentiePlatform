@@ -188,7 +188,7 @@ async function generateNewLink(title) {
     }
 }
 
-var j = schedule.scheduleJob('0 0 * * *', async function () {
+var j = schedule.scheduleJob('0 0 * * *', function () {
     console.log('Updating local data storage...');
     const url = "https://onderwijs.api.vlaanderen.be/onderwijsdoelen/onderwijsdoel?versie=2.0";
     fetch(url, {
@@ -203,8 +203,9 @@ var j = schedule.scheduleJob('0 0 * * *', async function () {
         .then(resp => resp.json())
         .then(function (jsondata) {
             const newData = jsondata.gegevens.member;
+            // fs.writeFileSync('./data.json', JSON.stringify(newData));
 
-            await fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
+            fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
                 if (err) throw err;
                 console.log('Data file is created successfully.');
             });
@@ -215,7 +216,7 @@ var j = schedule.scheduleJob('0 0 * * *', async function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... V5.0")
+    res.send("server is up and running... V4.2")
 });
 
 app.use('/api', bgRouter);
