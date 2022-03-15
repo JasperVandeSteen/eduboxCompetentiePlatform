@@ -192,7 +192,7 @@ function loadInData(object) {
     document.getElementById("main").innerHTML = htmlGroup;
 }
 
-fetch("../backend/data/" + document.title + ".json")
+fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox:" + document.title)
     .then(response => {
         return response.json();
     })

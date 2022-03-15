@@ -105,7 +105,7 @@ derde.addEventListener('click', (event) => {
 });
 ////////////////////////////////////////////////////////   
 
-fetch("../data.json")
+fetch("https://competentie-platform-backend.herokuapp.com/api/getData")
     .then(response => {
         return response.json();
     })
@@ -163,7 +163,7 @@ fetch("../data.json")
         console.log(duplicates);
     });
 
-fetch("../links.json")
+fetch("https://competentie-platform-backend.herokuapp.com/api/getLinks")
     .then(response => {
         return response.json();
     })
@@ -245,7 +245,7 @@ function showOrHideForm(state) {
 
         if (existingEDUbox != undefined) {
             document.getElementById("delete").style.display = "block";
-            fetch("../backend/data/" + existingEDUbox + ".json")
+            fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox:" + existingEDUbox)
                 .then(response => {
                     return response.json();
                 })

@@ -73,7 +73,7 @@
     let title = document.getElementById("title");
     let start = document.getElementById("start");
 
-    fetch("../data.json")
+    fetch("https://competentie-platform-backend.herokuapp.com/api/getData")
         .then(response => {
             return response.json();
         })
@@ -86,7 +86,7 @@
             });
         });
 
-    fetch("../links.json")
+    fetch("https://competentie-platform-backend.herokuapp.com/api/getLinks")
         .then(response => {
             return response.json();
         })
@@ -262,7 +262,7 @@
         });
 
         if (existingEDUbox != undefined) {
-            fetch("../backend/data/" + existingEDUbox + ".json")
+            fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox:" + existingEDUbox)
                 .then(response => {
                     return response.json();
                 })
