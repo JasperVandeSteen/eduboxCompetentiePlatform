@@ -134,10 +134,10 @@ async function generateJSONFile(data) {
             if (err) throw err;
             console.log('Data file is created successfully.');
         });
-        await fs.writeFile(`../frontend/${title}.html`, htmlBody, function (err) {
-            if (err) throw err;
-            console.log('HTML file is created successfully.');
-        });
+        // await fs.writeFile(`../frontend/${title}.html`, htmlBody, function (err) {
+        //     if (err) throw err;
+        //     console.log('HTML file is created successfully.');
+        // });
     } catch (err) {
         console.error(err)
     }
