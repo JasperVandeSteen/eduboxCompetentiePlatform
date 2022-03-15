@@ -160,7 +160,6 @@ fetch("https://competentie-platform-backend.herokuapp.com/api/getData")
             }
         });
         console.log(data);
-        console.log(duplicates);
     });
 
 fetch("https://competentie-platform-backend.herokuapp.com/api/getLinks")
