@@ -1,4 +1,4 @@
-import * as Hash from "../backend/HashFunction.js";
+import * as Hash from "./HashFunction.js";
 
 let data = [];
 let htmlString;
