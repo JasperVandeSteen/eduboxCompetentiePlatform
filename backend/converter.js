@@ -159,7 +159,7 @@ function generateNewLink(title) {
     if (!duplicate) {
         let newLinkObject = {
             "title": title,
-            "link": `<li><a href='../frontend/${title}.html' target='_blank'>${title}</a></li>`
+            "link": `<li><a href='./${title}.html' target='_blank'>${title}</a></li>`
         }
         json.push(newLinkObject);
         fs.writeFileSync('../links.json', JSON.stringify(json));
