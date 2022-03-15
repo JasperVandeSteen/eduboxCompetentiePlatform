@@ -24,9 +24,9 @@ app.use(cors());
 
 bgRouter.route('/addEdubox')
     .post((req, res) => {
-        // title = req.body.title
-        // generateJSONFile(req.body.selectedData)
-        // generateNewLink(title);
+        title = req.body.title
+        generateJSONFile(req.body.selectedData)
+        generateNewLink(title);
         res.send("done!");
     });
 
@@ -127,28 +127,28 @@ function generateJSONFile(data) {
             </html>
         `;
 
-        fs.writeFileSync(`../backend/data/${title}.json`, JSON.stringify(data));
-        fs.writeFileSync(`../frontend/${title}.html`, htmlBody);
+        fs.writeFileSync(`./data/${title}.json`, JSON.stringify(data));
+        // fs.writeFileSync(`../frontend/${title}.html`, htmlBody);
     } catch (err) {
         console.error(err)
     }
 }
 
 function deleteEduboxFiles(edubox) {
-    fs.unlinkSync(`../backend/data/${edubox}.json`);
-    fs.unlinkSync(`../frontend/${edubox}.html`);
+    fs.unlinkSync(`./data/${edubox}.json`);
+    // fs.unlinkSync(`../frontend/${edubox}.html`);
 
-    let data = fs.readFileSync('../links.json');
+    let data = fs.readFileSync('./links.json');
     let json = JSON.parse(data);
     json = json.filter((comp) => {
         return comp.title !== edubox
     });
-    fs.writeFileSync('../links.json', JSON.stringify(json, null, 2));
+    fs.writeFileSync('./links.json', JSON.stringify(json, null, 2));
 }
 
 function generateNewLink(title) {
     let duplicate = false;
-    let data = fs.readFileSync('../links.json');
+    let data = fs.readFileSync('./links.json');
     let json = JSON.parse(data);
     json.forEach(link => {
         if (link.title == title) {
@@ -181,7 +181,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
         .then(resp => resp.json())
         .then(function (jsondata) {
             const newData = jsondata.gegevens.member;
-            fs.writeFileSync('../data.json', JSON.stringify(newData));
+            fs.writeFileSync('./data.json', JSON.stringify(newData));
         })
         .catch(function (error) {
             console.log(error);
@@ -189,7 +189,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... (temp)")
+    res.send("server is up and running... (temp2)")
 });
 
 app.use('/api', bgRouter);
