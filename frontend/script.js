@@ -11,6 +11,12 @@ let view = "lijst";
 let data;
 let filteredData = [];
 
+var params = {};
+location.search.slice(1).split("&").forEach(function (pair) {
+    pair = pair.split("=");
+    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+});
+
 ////////////////////////////////////////////////////////   GRAAD SELECTIE
 eerste.addEventListener('click', (event) => {
     event.preventDefault();
@@ -83,6 +89,8 @@ const groupBy = (array, key) => {
 };
 
 function loadInData(object) {
+    document.getElementById("title").innerHTML = params.title;
+    document.title = "EDUboxen | " + params.title;
     filteredData = [];
     object.forEach(competentie => {
         if (competentie.Graad == graad) {
@@ -192,7 +200,7 @@ function loadInData(object) {
     document.getElementById("main").innerHTML = htmlGroup;
 }
 
-fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox/" + document.title)
+fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox/" + params.title)
     .then(response => {
         return response.json();
     })
