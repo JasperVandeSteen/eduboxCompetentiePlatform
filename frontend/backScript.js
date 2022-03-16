@@ -265,6 +265,7 @@ function showOrHideForm(state) {
         newEDUform.style.display = "none";
 
         document.getElementById("inputPrompt").style.display = "block";
+        document.getElementById("version").style.display = "none";
     } else if (state == 0) {
         compForm.style.display = "none";
         nav.style.display = "none";
@@ -273,6 +274,7 @@ function showOrHideForm(state) {
         newEDUform.style.display = "flex";
 
         document.getElementById("inputPrompt").style.display = "flex";
+        document.getElementById("version").style.display = "block";
     }
 }
 
