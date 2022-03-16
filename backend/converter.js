@@ -115,33 +115,59 @@ async function generateNewLink(title) {
     }
 }
 
-var j = schedule.scheduleJob('0 0 * * *', function () {
-    console.log('Updating local data storage...');
-    const url = "https://onderwijs.api.vlaanderen.be/onderwijsdoelen/onderwijsdoel?versie=2.0";
-    fetch(url, {
-            method: "GET",
-            withCredentials: true,
-            headers: {
-                'X-API-KEY': 'yrkJV8z5jYAje8W7ErNnenp9j3Yz8xH8',
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(resp => resp.json())
-        .then(function (jsondata) {
-            const newData = jsondata.gegevens.member;
-            // fs.writeFileSync('./data.json', JSON.stringify(newData));
+// var j = schedule.scheduleJob('0 0 * * *', function () {
+//     console.log('Updating local data storage...');
+//     const url = "https://onderwijs.api.vlaanderen.be/onderwijsdoelen/onderwijsdoel?versie=2.0";
+//     fetch(url, {
+//             method: "GET",
+//             withCredentials: true,
+//             headers: {
+//                 'X-API-KEY': 'yrkJV8z5jYAje8W7ErNnenp9j3Yz8xH8',
+//                 'Accept': '*/*',
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(resp => resp.json())
+//         .then(function (jsondata) {
+//             const newData = jsondata.gegevens.member;
+//             // fs.writeFileSync('./data.json', JSON.stringify(newData));
 
-            fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
-                if (err) throw err;
-                date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                console.log('Completed update at ' + date);
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
+//             fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
+//                 if (err) throw err;
+//                 date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+//                 console.log('Completed update at ' + date);
+//             });
+//         })
+//         .catch(function (error) {
+//             console.log(error);
+//         });
+// });
+
+console.log('Updating local data storage...');
+const url = "https://onderwijs.api.vlaanderen.be/onderwijsdoelen/onderwijsdoel?versie=2.0";
+fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+            'X-API-KEY': 'yrkJV8z5jYAje8W7ErNnenp9j3Yz8xH8',
+            'Accept': '*/*',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(resp => resp.json())
+    .then(function (jsondata) {
+        const newData = jsondata.gegevens.member;
+        // fs.writeFileSync('./data.json', JSON.stringify(newData));
+
+        fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
+            if (err) throw err;
+            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            console.log('Completed update at ' + date);
         });
-});
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 
 app.get('/', (req, res) => {
     res.send("server is up and running... V5.1 --- Last data update was at: " + date)
