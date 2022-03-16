@@ -134,7 +134,7 @@ async function generateNewLink(title) {
 
 //             fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
 //                 if (err) throw err;
-//                 date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+//                 date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear() + '::' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 //                 console.log('Completed update at ' + date);
 //             });
 //         })
@@ -161,7 +161,7 @@ fetch(url, {
 
         fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
             if (err) throw err;
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear() + '::' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
             console.log('Completed update at ' + date);
         });
     })
@@ -170,7 +170,7 @@ fetch(url, {
     });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... V5.1 --- Last data update was at: " + date)
+    res.send("server is up and running... V5.2 --- Last data update was at: " + date)
 });
 
 app.use('/api', bgRouter);
