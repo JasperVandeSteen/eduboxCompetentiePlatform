@@ -12,6 +12,9 @@ const port = process.env.PORT || 3000;
 
 let title;
 
+let today = new Date();
+let date;
+
 // Middle ware
 app.use(bodyparser.urlencoded({
     limit: '50mb',
@@ -131,7 +134,8 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 
             fs.writeFile(`./data.json`, JSON.stringify(newData), function (err) {
                 if (err) throw err;
-                console.log('Data file is created successfully.');
+                date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                console.log('Completed update at ' + date);
             });
         })
         .catch(function (error) {
@@ -140,7 +144,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... V5.0")
+    res.send("server is up and running... V5.1 --- Last data update was at: " + date)
 });
 
 app.use('/api', bgRouter);
