@@ -25,16 +25,18 @@
 
     <header>
         <h2 id="title">EDUbox</h2>
-        <div class="menu" id="leftM">
-            <p class="menuItem selected" id="eerste">1ste Graad</p>
-            <p class="menuItem" id="tweede">2e Graad</p>
-            <p class="menuItem" id="derde">3e Graad</p>
+        <div id="headerGroup">
+            <div class="menu" id="leftM">
+                <p class="menuItem selected" id="eerste">1ste Graad</p>
+                <p class="menuItem" id="tweede">2e Graad</p>
+                <p class="menuItem" id="derde">3e Graad</p>
+            </div>
+            <select class="menu" id="rightM" name="stroom">
+                <option value="alle">Alle stromingen</option>
+                <option value="A">A-stroom</option>
+                <option value="B">B-stroom</option>
+            </select>
         </div>
-        <select class="menu" id="rightM" name="stroom">
-            <option value="alle">Alle stromingen</option>
-            <option value="A">A-stroom</option>
-            <option value="B">B-stroom</option>
-        </select>
     </header>
 
     <main id="main"></main>
