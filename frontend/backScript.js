@@ -401,6 +401,8 @@ deleteComp.addEventListener('click', (e) => {
             body: JSON.stringify({
                 "title": title.value
             })
+        }).then(() => {
+            location.reload();
         });
     }
 });
