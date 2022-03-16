@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./backStyle.css">
     <script type="module" src="./backScript.js"></script>
     <link rel="icon" type="image/svg" href="./resources/images/icon.svg">
-    <title>EDUbox Admin tool | V2.0</title>
+    <title>EDUbox Admin tool | V2.2</title>
 </head>
 
 <body>
@@ -103,7 +103,7 @@
                 data.forEach(comp => {
                     if ("vlaamse_sleutelcompetentie" in comp.onderwijsdoelenset) {
                         sleutelComp2 = comp.onderwijsdoelenset.vlaamse_sleutelcompetentie
-                        .korte_naam;
+                            .korte_naam;
                     } else {
                         sleutelComp2 = comp.onderwijsdoelenset.wetenschapsdomein.korte_naam;
                     }
