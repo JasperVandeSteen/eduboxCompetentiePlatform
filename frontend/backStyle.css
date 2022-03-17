@@ -238,6 +238,7 @@ button:hover {
     left: 45%;
     right: 45%;
 
+    width: fit-content;
     padding: 1% 3%;
     color: white;
 
