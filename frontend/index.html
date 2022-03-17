@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="./backStyle.css">
     <script type="module" src="./backScript.js"></script>
     <link rel="icon" type="image/svg" href="./resources/images/icon.svg">
-    <title>EDUbox Admin tool | V2.3.5</title>
+    <title>EDUbox Admin tool | V2.3.6</title>
 </head>
 
 <body>
-    <p id="version">V2.3.5</p>
+    <p id="version">V2.3.6</p>
     <div id="loading">
         <img src="./resources/images/loading.gif" alt="loading">
         <h3>Competenties worden ingeladen...</h3>
@@ -168,13 +168,13 @@
             i++;
         });
         for (var j = removeIndexes.length - 1; j >= 0; j--) {
-            selectedData.splice(removeIndexes[i], 1);
-            selectedComps.splice(removeIndexes[i], 1);
+            selectedData.splice(removeIndexes[j], 1);
+            selectedComps.splice(removeIndexes[j], 1);
         }
     }
 
     function addOrDeleteCompetentie(state, col, comp) {
-        if (state = 1) {
+        if (state == 1) {
             if (!selectedComps.includes(comp)) {
                 let sleutelComp;
                 let doelzin;
@@ -270,7 +270,7 @@
                     }
                 });
             }
-        } else if (state = 0) {
+        } else if (state == 0) {
             selectedData.forEach(element => {
                 if (element.Id == comp) {
                     let j = 0;
@@ -288,12 +288,12 @@
 
     function checkOrUncheckComp(col, comp) {
         if (document.getElementById("check" + comp + col).checked) {
-            document.getElementById("check" + comp + col).setAttribute("checked", true)
-            addOrDeleteCompetentie(1, col, comp)
+            document.getElementById("check" + comp + col).setAttribute("checked", true);
+            addOrDeleteCompetentie(1, col, comp);
         } else if (!document.getElementById("check" + comp + col).checked) {
             document.getElementById("check" + comp + col).checked = false;
             document.getElementById("check" + comp + col).removeAttribute("checked");
-            addOrDeleteCompetentie(0, col, comp)
+            addOrDeleteCompetentie(0, col, comp);
         }
         console.log(selectedData);
     }
