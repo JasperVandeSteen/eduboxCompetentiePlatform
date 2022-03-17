@@ -1,5 +1,5 @@
 * {
-    font-family: forma-djr-text, sans-serif;
+    font-family: Arial, Helvetica, sans-serif !important;
     font-weight: 400;
     font-style: normal;
 }
@@ -16,7 +16,6 @@ h1 {
     padding: 0.2em;
     margin: 0;
 
-    font-family: forma-djr-display, sans-serif;
     font-weight: 700;
     font-style: normal;
     top: 10px;
@@ -28,7 +27,6 @@ h1 {
 }
 
 h2 {
-    font-family: forma-djr-display, sans-serif;
     font-weight: 700;
     font-style: normal;
 
@@ -53,7 +51,13 @@ main {
 }
 
 main h1 {
-    padding: 0.2em 0.4em;
+    font-size: 1.8em;
+    padding: .5em;
+}
+
+main ol {
+    list-style: decimal;
+    margin-left: 40px;
 }
 
 #loading {
@@ -107,6 +111,11 @@ main h1 {
     margin: 1% 0;
 }
 
+.nav,
+#zoeken {
+    max-width: 100vw;
+}
+
 .nav div {
     display: flex;
     justify-content: center;
@@ -119,7 +128,18 @@ main h1 {
 }
 
 #start {
+    display: flex;
+    align-items: center;
     margin-bottom: 2%;
+}
+
+#start label {
+    margin-right: 2%;
+}
+
+#title {
+    width: 50%;
+    margin-right: 2%;
 }
 
 #start button {

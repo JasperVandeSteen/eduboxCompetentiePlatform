@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./backStyle.css">
     <script type="module" src="./backScript.js"></script>
     <link rel="icon" type="image/svg" href="./resources/images/icon.svg">
@@ -339,21 +340,25 @@
 
     addBtn.addEventListener('click', (e) => {
         let title = document.getElementById("title").value
-        if (confirm("Wil je met deze data de nieuwe EDUbox maken?") == true) {
-            // console.log(JSON.stringify(selectedData));
-            fetch('https://competentie-platform-backend.herokuapp.com/api/addEdubox', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    selectedData,
-                    title
-                })
-            }).then(() => {
-                location.reload();
-            });
+        if (selectedData.length > 0) {
+            if (confirm("Wil je met deze data de nieuwe EDUbox maken?") == true) {
+                // console.log(JSON.stringify(selectedData));
+                fetch('https://competentie-platform-backend.herokuapp.com/api/addEdubox', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        selectedData,
+                        title
+                    })
+                }).then(() => {
+                    location.reload();
+                });
+            }
+        } else {
+            alert("Er moet data meegegeven worden om een EDUbox te maken");
         }
     });
 </script>

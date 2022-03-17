@@ -1,6 +1,6 @@
 * {
-    font-family: forma-djr-text, sans-serif;
-    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-style: normal !important;
 }
 
 html {
@@ -35,9 +35,10 @@ main {
 
 h1 {
     display: inline-block;
-    padding: 0.2em;
+    padding: .8em;
+    margin-bottom: 1em;
 
-    font-family: forma-djr-display, sans-serif;
+    font-size: 1.5em;
     font-weight: 700;
     font-style: normal;
 
@@ -49,12 +50,11 @@ h1 {
 }
 
 h2 {
-    font-family: forma-djr-display, sans-serif;
     font-weight: 700;
     font-style: normal;
 
     color: #3462AC;
-    font-size: 3em;
+    font-size: 2.6em;
 }
 
 h4 {
@@ -124,9 +124,9 @@ p {
 }
 
 .menuItem {
-    padding: 3% 8.5%;
+    padding: 3% 9%;
     margin: 0;
-    width: 160px;
+    width: 180px;
 
     display: flex;
     align-items: center;
