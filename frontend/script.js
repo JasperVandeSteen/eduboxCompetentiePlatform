@@ -138,13 +138,13 @@ function loadInData(object) {
                         }
                     } else if (hoofdstuk.includes("Hoofdstuk")) {
                         bubbleHTML += `
-                            <div style="display: block;" class="bubble" id="hoofdstuk">${hoofdstuk}</div>
+                            <div style="display: inline-block;" class="bubble" id="hoofdstuk">${hoofdstuk}</div>
                         `;
                     }
                 });
                 if (challengeString != "Challenge: ") {
                     bubbleHTML += `
-                        <div style="display: block;" class="bubble" id="challenges">${challengeString}</div>
+                        <div style="display: inline-block;" class="bubble" id="challenges">${challengeString}</div>
                     `;
                 }
             }
