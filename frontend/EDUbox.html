@@ -46,17 +46,20 @@
     function showMoreOrLess(numb, moreOrLess) {
         let zin = document.getElementById("gesloten" + numb);
         let extra = document.getElementById("open" + numb);
+        let gesloten = document.getElementById("gesloten" + numb)
         let btn = document.getElementById("more" + numb);
 
         if (moreOrLess == 1) {
             zin.style.boxShadow = "0px 3px 6px 1px rgba(0, 0, 0, 0.171)";
             zin.style.padding = "2%";
+            gesloten.style.margin = "-2.1%";
 
             extra.style.display = "block";
             btn.style.display = "none";
         } else if (moreOrLess == 0) {
             zin.style.boxShadow = "none";
             zin.style.padding = "0";
+            gesloten.style.margin = "0";
 
             extra.style.display = "none";
             btn.style.display = "block";

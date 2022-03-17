@@ -1,9 +1,7 @@
-* {
+html {
     font-family: Arial, Helvetica, sans-serif !important;
     font-style: normal !important;
-}
 
-html {
     scroll-behavior: smooth;
 }
 
@@ -20,7 +18,7 @@ nav h2 {
 }
 
 header {
-    margin: 3% 0 0 5%;
+    margin: 3% 5% 0 5%;
     height: 3em;
 
     display: flex;
@@ -86,9 +84,17 @@ p {
     width: 100%;
     background-color: #3FA535;
     color: white;
-    padding: 6%;
+    padding: 1em .5em;
 
+    text-align: center;
     cursor: pointer;
+
+    transition: .2s ease-in-out;
+}
+
+#backToTop p:hover {
+    filter: brightness(115%);
+    transition: .2s ease-in-out;
 }
 
 #headerGroup {
@@ -197,7 +203,6 @@ p {
 }
 
 .comp {
-    width: 65%;
     padding: 2%;
     margin-bottom: 2%;
 
@@ -206,7 +211,7 @@ p {
 
 .comp p {
     margin: 0;
-    width: 65%;
+    width: 50%;
     font-size: 1.1rem;
 }
 
@@ -278,7 +283,6 @@ p {
     }
 
     .comp {
-        width: 81%;
         padding: 4%;
         margin-bottom: 4%;
     }
