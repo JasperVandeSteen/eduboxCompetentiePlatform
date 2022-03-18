@@ -104,7 +104,6 @@ p {
     justify-content: flex-end;
 
     flex-grow: 1;
-    gap: 10%;
 }
 
 .menu {
@@ -280,9 +279,9 @@ p {
         margin-top: 2%;
     }
 
-    #headerGroup {
+    /* #headerGroup {
         justify-content: space-between;
-    }
+    } */
 
     .comp {
         padding: 4%;
