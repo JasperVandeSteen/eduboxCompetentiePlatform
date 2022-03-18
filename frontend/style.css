@@ -119,6 +119,7 @@ p {
 #rightM {
     width: 220px;
     padding: 0.8em 2%;
+    margin-left: 5%;
 
     border: none;
     border-right: 15px solid #F3F3F3;
