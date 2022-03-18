@@ -279,9 +279,10 @@ p {
         margin-top: 2%;
     }
 
-    /* #headerGroup {
-        justify-content: space-between;
-    } */
+    #rightM {
+        margin-left: 5%;
+
+    }
 
     .comp {
         padding: 4%;
