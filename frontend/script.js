@@ -26,7 +26,7 @@ eerste.addEventListener('click', (event) => {
     derde.classList = "menuItem";
 
     rightM.innerHTML = `
-        <option value="alle">Alle stromingen</option>
+        <option value="alle">Alle stromen</option>
         <option value="A">A-stroom</option>
         <option value="B">B-stroom</option>
     `;
@@ -43,7 +43,7 @@ tweede.addEventListener('click', (event) => {
     derde.classList = "menuItem";
 
     rightM.innerHTML = `
-        <option value="alle">Alle stromingen</option>
+        <option value="alle">Alle finaliteiten</option>
         <option value="A">Finaliteit doorstroom</option>
         <option value="B">Finaliteit arbeidsmarkt</option>
         <option value="C">Dubbele finaliteit</option>
@@ -61,7 +61,7 @@ derde.addEventListener('click', (event) => {
     tweede.classList = "menuItem";
 
     rightM.innerHTML = `
-        <option value="alle">Alle stromingen</option>
+        <option value="alle">Alle finaliteiten</option>
         <option value="A">Finaliteit doorstroom</option>
         <option value="B">Finaliteit arbeidsmarkt</option>
         <option value="C">Dubbele finaliteit</option>
@@ -98,17 +98,49 @@ function loadInData(object) {
         }
     });
 
+    filteredData.sort(function (a, b) {
+        let numbA,
+            numbB;
+        let strA = a.Doelzin,
+            srtB = b.Doelzin;
+        if (strA.charAt(0) == "B" || strA.charAt(0) == "U") {
+            let bg = strA.slice(0, 3);
+            numbA = bg + strA.slice(3, -1).substr(0, strA.slice(3, -1)
+                .indexOf(' '));
+        } else {
+            numbA = strA.substr(0, strA.indexOf(' '));
+        }
+        if (srtB.charAt(0) == "B" || srtB.charAt(0) == "U") {
+            let bg = srtB.slice(0, 3);
+            numbB = bg + srtB.slice(3, -1).substr(0, srtB.slice(3, -1)
+                .indexOf(' '));
+        } else {
+            numbB = srtB.substr(0, srtB.indexOf(' '));
+        }
+
+        let keyA = a.Id,
+            keyB = b.Id;
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+
     const groupedByComp = groupBy(filteredData, 'Sleutelcompetentie');
     console.log(filteredData);
     let htmlGroup = ``;
     let index = 0;
+
     Object.entries(groupedByComp).map(item => {
         let htmlString = ``;
+        let nextStroom;
+        let stroom;
+        let first = true;
 
         item[1].forEach(comp => {
             let bubbleHTML = "";
             let number;
             let rest;
+            let stroomTitel;
             let uitlegString = `
                 Met inbegrip van kennis
                 Feitenkennis
@@ -129,12 +161,12 @@ function loadInData(object) {
                 let first = true;
                 let challengeString = "Challenge: ";
                 comp.Hoofdstukken.forEach(hoofdstuk => {
-                    if (hoofdstuk.includes("Challenge")) {
+                    if (hoofdstuk.toLowerCase().includes("challenge") || hoofdstuk.toLowerCase().includes("uitdaging")) {
                         if (first) {
-                            challengeString += hoofdstuk.slice(-1);
+                            challengeString += hoofdstuk.slice(-2);
                             first = !first;
                         } else {
-                            challengeString += ", " + hoofdstuk.slice(-1);
+                            challengeString += ", " + hoofdstuk.slice(-2);
                         }
                     } else if (hoofdstuk.includes("Hoofdstuk")) {
                         bubbleHTML += `
@@ -147,6 +179,26 @@ function loadInData(object) {
                         <div style="display: inline-block;" class="bubble" id="challenges">${challengeString}</div>
                     `;
                 }
+            }
+
+            if (first) {
+                stroom = comp.Finaliteit;
+                nextStroom = comp.Finaliteit;
+            } else {
+                nextStroom = comp.Finaliteit;
+            }
+
+            if (nextStroom != stroom) {
+                stroom = nextStroom;
+                stroomTitel = `
+                    <h3 class="${stroom} subTitle">${stroom}</h3>
+                `;
+            } else if (first) {
+                stroomTitel = `
+                    <h3 class="${stroom} subTitle">${stroom}</h3>
+                `;
+            } else {
+                stroomTitel = "";
             }
 
             let str = comp.Doelzin;
@@ -164,6 +216,7 @@ function loadInData(object) {
                 uitlegString = comp.UitlegString;
 
             htmlString += `
+                        ${stroomTitel}
                         <div class="comp" id="${index}">
                             <div id="gesloten${index}" class="gesloten">
                                 <p><b id="number">${number}</b> ${rest}</p>
@@ -185,6 +238,8 @@ function loadInData(object) {
                         </div>
                     `;
             index++;
+            if (first)
+                first = false;
         });
         htmlGroup += `
                 <div class="compGroep">
@@ -237,19 +292,43 @@ rightM.addEventListener('change', (e) => {
         switch (rightM.selectedOptions[0].value) {
             case "alle":
                 document.getElementById(i).style.display = "block";
+                let titles = document.getElementsByClassName("subTitle");
+                for (var j = 0; j < titles.length; j++) {
+                    titles.item(j).style.display = "block";
+                }
                 break;
             case "A":
                 if (graad == "1ste graad") {
                     if (document.getElementById("stroom" + i).innerText != "A-stroom") {
                         document.getElementById(i).style.display = "none";
+                        let titles = document.getElementsByClassName("A-stroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "block";
+                        }
                     } else {
                         document.getElementById(i).style.display = "block";
+                        let titles = document.getElementsByClassName("B-stroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "none";
+                        }
                     }
                 } else if (graad == "2de graad" || graad == "3de graad") {
                     if (document.getElementById("stroom" + i).innerText != "Finaliteit doorstroom") {
                         document.getElementById(i).style.display = "none";
+                        let titles = document.getElementsByClassName("Finaliteit doorstroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "block";
+                        }
                     } else {
                         document.getElementById(i).style.display = "block";
+                        let titles = document.getElementsByClassName("Finaliteit arbeidsmarkt");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "none";
+                        }
+                        let titles2 = document.getElementsByClassName("Dubbele finaliteit");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles2.item(j).style.display = "none";
+                        }
                     }
                 }
                 break;
@@ -257,14 +336,34 @@ rightM.addEventListener('change', (e) => {
                 if (graad == "1ste graad") {
                     if (document.getElementById("stroom" + i).innerText != "B-stroom") {
                         document.getElementById(i).style.display = "none";
+                        let titles = document.getElementsByClassName("B-stroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "block";
+                        }
                     } else {
                         document.getElementById(i).style.display = "block";
+                        let titles = document.getElementsByClassName("A-stroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "none";
+                        }
                     }
                 } else if (graad == "2de graad" || graad == "3de graad") {
                     if (document.getElementById("stroom" + i).innerText != "Finaliteit arbeidsmarkt") {
                         document.getElementById(i).style.display = "none";
+                        let titles = document.getElementsByClassName("Finaliteit arbeidsmarkt");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "block";
+                        }
                     } else {
                         document.getElementById(i).style.display = "block";
+                        let titles = document.getElementsByClassName("Finaliteit doorstroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "none";
+                        }
+                        let titles2 = document.getElementsByClassName("Dubbele finaliteit");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles2.item(j).style.display = "none";
+                        }
                     }
                 }
                 break;
@@ -274,8 +373,20 @@ rightM.addEventListener('change', (e) => {
                 } else if (graad == "2de graad" || graad == "3de graad") {
                     if (document.getElementById("stroom" + i).innerText != "Dubbele finaliteit") {
                         document.getElementById(i).style.display = "none";
+                        let titles = document.getElementsByClassName("Dubbele finaliteit");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "block";
+                        }
                     } else {
                         document.getElementById(i).style.display = "block";
+                        let titles = document.getElementsByClassName("Finaliteit doorstroom");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles.item(j).style.display = "none";
+                        }
+                        let titles2 = document.getElementsByClassName("Finaliteit arbeidsmarkt");
+                        for (var j = 0; j < titles.length; j++) {
+                            titles2.item(j).style.display = "none";
+                        }
                     }
                 }
                 break;

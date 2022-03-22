@@ -55,6 +55,15 @@ h2 {
     font-size: 2.6em;
 }
 
+h3 {
+    width: fit-content;
+    text-align: center;
+    padding: .5em;
+
+    background-color: #3FA535;
+    color: white;
+}
+
 h4 {
     color: #EA5057;
 }

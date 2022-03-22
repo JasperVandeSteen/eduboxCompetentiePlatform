@@ -179,7 +179,6 @@
                 let sleutelComp;
                 let doelzin;
                 let finaliteit;
-                let infoHtmlString = `<u>Met inbegrip van kennis</u><br>`;
 
 
                 ///////////////////////////////////////////////////////////////////////////////
@@ -203,48 +202,74 @@
                     finaliteit = data[comp].onderwijsdoelenset.onderwijsstructuur.stroom;
                 }
 
+                let kennisPresent = false;
                 if (data[comp].feitenkennis) {
+                    kennisPresent = true;
+                    infoHtmlString = `<u>Met inbegrip van kennis</u><br>`;
                     infoHtmlString += `
                         <p style="margin-left:2%;"><b>Feitenkennis: </b> ${data[comp].feitenkennis}</p>
                     `;
                 }
                 if (data[comp].conceptuele_kennis) {
+                    if (!kennisPresent) {
+                        kennisPresent = true;
+                        infoHtmlString = `<u>Met inbegrip van kennis</u><br>`;
+                    }
+
                     infoHtmlString += `
                         <p style="margin-left:2%;"><b>Conceptuele kennis: </b> ${data[comp].conceptuele_kennis}</p>
                     `;
                 }
                 if (data[comp].procedurele_kennis) {
+                    if (!kennisPresent) {
+                        kennisPresent = true;
+                        infoHtmlString = `<u>Met inbegrip van kennis</u><br>`;
+                    }
+
                     infoHtmlString += `
                         <p style="margin-left:2%;"><b>Procedurele kennis: </b> ${data[comp].procedurele_kennis}</p>
                     `;
                 }
 
-                infoHtmlString += `<p><u>Met inbegrip van context</u></p><br>`;
                 if (data[comp].context) {
+                    infoHtmlString += `<p><u>Met inbegrip van context</u></p><br>`;
                     infoHtmlString += `
                         <p style="margin-left:2%;">${data[comp].context}</p>
                     `;
                 }
 
-                infoHtmlString += `<p><u>Met inbegrip van tekst kenmerken</u></p><br>`;
                 if (data[comp].tekstkenmerken) {
+                    infoHtmlString += `<p><u>Met inbegrip van tekst kenmerken</u></p><br>`;
                     infoHtmlString += `
                         <p style="margin-left:2%;">${data[comp].tekstkenmerken}</p>
                     `;
                 }
 
-                infoHtmlString += `<p><u>Met inbegrip van dimensies eindterm</u></p><br>`;
+                let dimensiesPresent = false;
                 if (data[comp].cognitieve_dimensie) {
+                    dimensiesPresent = true;
+                    infoHtmlString += `<p><u>Met inbegrip van dimensies eindterm</u></p><br>`;
+
                     infoHtmlString += `
                         <p style="margin-left:2%;"><b>Cognitieve dimensie: </b> ${data[comp].cognitieve_dimensie}</p>
                     `;
                 }
                 if (data[comp].affectieve_dimensie) {
+                    if (!dimensiesPresent) {
+                        dimensiesPresent = true;
+                        infoHtmlString += `<p><u>Met inbegrip van dimensies eindterm</u></p><br>`;
+                    }
+
                     infoHtmlString += `
                         <p style="margin-left:2%;"><b>Affectieve dimensie: </b> ${data[comp].affectieve_dimensie}</p>
                     `;
                 }
                 if (data[comp].psychomotorische_dimensie) {
+                    if (!dimensiesPresent) {
+                        dimensiesPresent = true;
+                        infoHtmlString += `<p><u>Met inbegrip van dimensies eindterm</u></p><br>`;
+                    }
+
                     infoHtmlString += `
                         <p style="margin-left:2%;"><b>Psychomotorische dimensie: </b> ${data[comp].psychomotorische_dimensie}</p>
                     `;
