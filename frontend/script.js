@@ -326,7 +326,7 @@ rightM.addEventListener('change', (e) => {
                             titles.item(j).style.display = "none";
                         }
                         let titles2 = document.getElementsByClassName("Dubbele finaliteit");
-                        for (var j = 0; j < titles.length; j++) {
+                        for (var j = 0; j < titles2.length; j++) {
                             titles2.item(j).style.display = "none";
                         }
                     }
@@ -361,7 +361,7 @@ rightM.addEventListener('change', (e) => {
                             titles.item(j).style.display = "none";
                         }
                         let titles2 = document.getElementsByClassName("Dubbele finaliteit");
-                        for (var j = 0; j < titles.length; j++) {
+                        for (var j = 0; j < titles2.length; j++) {
                             titles2.item(j).style.display = "none";
                         }
                     }
@@ -384,7 +384,7 @@ rightM.addEventListener('change', (e) => {
                             titles.item(j).style.display = "none";
                         }
                         let titles2 = document.getElementsByClassName("Finaliteit arbeidsmarkt");
-                        for (var j = 0; j < titles.length; j++) {
+                        for (var j = 0; j < titles2.length; j++) {
                             titles2.item(j).style.display = "none";
                         }
                     }
