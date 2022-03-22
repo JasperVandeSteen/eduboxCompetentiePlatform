@@ -292,43 +292,25 @@ rightM.addEventListener('change', (e) => {
         switch (rightM.selectedOptions[0].value) {
             case "alle":
                 document.getElementById(i).style.display = "block";
-                let titles = document.getElementsByClassName("subTitle");
-                for (var j = 0; j < titles.length; j++) {
-                    titles.item(j).style.display = "block";
-                }
+                showOrHideSubTitle("subTitle", "block");
                 break;
             case "A":
                 if (graad == "1ste graad") {
                     if (document.getElementById("stroom" + i).innerText != "A-stroom") {
                         document.getElementById(i).style.display = "none";
-                        let titles = document.getElementsByClassName("A-stroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "block";
-                        }
+                        showOrHideSubTitle("A-stroom", "block");
                     } else {
                         document.getElementById(i).style.display = "block";
-                        let titles = document.getElementsByClassName("B-stroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "none";
-                        }
+                        showOrHideSubTitle("B-stroom", "none");
                     }
                 } else if (graad == "2de graad" || graad == "3de graad") {
                     if (document.getElementById("stroom" + i).innerText != "Finaliteit doorstroom") {
                         document.getElementById(i).style.display = "none";
-                        let titles = document.getElementsByClassName("Finaliteit doorstroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "block";
-                        }
+                        showOrHideSubTitle("Finaliteit doorstroom", "block");
                     } else {
                         document.getElementById(i).style.display = "block";
-                        let titles = document.getElementsByClassName("Finaliteit arbeidsmarkt");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "none";
-                        }
-                        let titles2 = document.getElementsByClassName("Dubbele finaliteit");
-                        for (var j = 0; j < titles2.length; j++) {
-                            titles2.item(j).style.display = "none";
-                        }
+                        showOrHideSubTitle("Finaliteit arbeidsmarkt", "none");
+                        showOrHideSubTitle("Dubbele finaliteit", "none");
                     }
                 }
                 break;
@@ -336,34 +318,19 @@ rightM.addEventListener('change', (e) => {
                 if (graad == "1ste graad") {
                     if (document.getElementById("stroom" + i).innerText != "B-stroom") {
                         document.getElementById(i).style.display = "none";
-                        let titles = document.getElementsByClassName("B-stroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "block";
-                        }
+                        showOrHideSubTitle("B-stroom", "block");
                     } else {
                         document.getElementById(i).style.display = "block";
-                        let titles = document.getElementsByClassName("A-stroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "none";
-                        }
+                        showOrHideSubTitle("A-stroom", "none");
                     }
                 } else if (graad == "2de graad" || graad == "3de graad") {
                     if (document.getElementById("stroom" + i).innerText != "Finaliteit arbeidsmarkt") {
                         document.getElementById(i).style.display = "none";
-                        let titles = document.getElementsByClassName("Finaliteit arbeidsmarkt");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "block";
-                        }
+                        showOrHideSubTitle("Finaliteit arbeidsmarkt", "block");
                     } else {
                         document.getElementById(i).style.display = "block";
-                        let titles = document.getElementsByClassName("Finaliteit doorstroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "none";
-                        }
-                        let titles2 = document.getElementsByClassName("Dubbele finaliteit");
-                        for (var j = 0; j < titles2.length; j++) {
-                            titles2.item(j).style.display = "none";
-                        }
+                        showOrHideSubTitle("Finaliteit doorstroom", "none");
+                        showOrHideSubTitle("Dubbele finaliteit", "none");
                     }
                 }
                 break;
@@ -373,20 +340,11 @@ rightM.addEventListener('change', (e) => {
                 } else if (graad == "2de graad" || graad == "3de graad") {
                     if (document.getElementById("stroom" + i).innerText != "Dubbele finaliteit") {
                         document.getElementById(i).style.display = "none";
-                        let titles = document.getElementsByClassName("Dubbele finaliteit");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "block";
-                        }
+                        showOrHideSubTitle("Dubbele finaliteit", "block");
                     } else {
                         document.getElementById(i).style.display = "block";
-                        let titles = document.getElementsByClassName("Finaliteit doorstroom");
-                        for (var j = 0; j < titles.length; j++) {
-                            titles.item(j).style.display = "none";
-                        }
-                        let titles2 = document.getElementsByClassName("Finaliteit arbeidsmarkt");
-                        for (var j = 0; j < titles2.length; j++) {
-                            titles2.item(j).style.display = "none";
-                        }
+                        showOrHideSubTitle("Finaliteit doorstroom", "none");
+                        showOrHideSubTitle("Finaliteit arbeidsmarkt", "none");
                     }
                 }
                 break;
@@ -394,5 +352,30 @@ rightM.addEventListener('change', (e) => {
                 break;
         }
     }
+
+    let groepen = document.getElementsByClassName("compGroep");
+    for (var j = 0; j < groepen.length; j++) {
+        let competenties = groepen.item(j).children.item(1).children;
+        let hasComps = false;
+        for (var k = 1; k < competenties.length; k++) {
+            if (competenties.item(k).style.display == "block") {
+                hasComps = true;
+            }
+        }
+        if (!hasComps) {
+            groepen.item(j).style.display = "none";
+        } else {
+            groepen.item(j).style.display = "block";
+        }
+    }
+
+    function showOrHideSubTitle(title, state) {
+        let titles = document.getElementsByClassName(title);
+        for (var j = 0; j < titles.length; j++) {
+            titles.item(j).style.display = state;
+        }
+    }
 });
 ////////////////////////////////////////////////////////
+
+//box.children.length;

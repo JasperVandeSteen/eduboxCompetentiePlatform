@@ -34,7 +34,7 @@ main {
 h1 {
     display: inline-block;
     padding: .5em;
-    margin-bottom: 1em;
+    margin-bottom: .5em;
 
     font-size: 1.8em;
     font-weight: 700;
@@ -60,8 +60,12 @@ h3 {
     text-align: center;
     padding: .5em;
 
-    background-color: #3FA535;
-    color: white;
+    font-size: 1.5em;
+    font-weight: 700;
+
+    /* background-color: #3FA535; */
+    color: #3FA535;
+    ;
 }
 
 h4 {
