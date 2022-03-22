@@ -103,6 +103,10 @@ main ol {
     width: 30%;
 }
 
+#graden .unSelected {
+    filter: brightness(.8);
+}
+
 #zoeken {
     display: none;
     width: 50%;
@@ -226,7 +230,6 @@ button:hover {
 
 .selected {
     border: 2px solid black;
-    border-radius: 5px;
     filter: brightness(115%);
 }
 

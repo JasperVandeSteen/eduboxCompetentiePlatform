@@ -1,6 +1,8 @@
 import * as Hash from "./HashFunction.js";
 
 let data = [];
+let filteredArray = [];
+let indexSet = [];
 let htmlString;
 let index;
 let pickedArr;
@@ -60,8 +62,8 @@ eerste.addEventListener('click', (event) => {
         filterByGraad(0);
     } else {
         eerste.classList = "Bluebtn selected";
-        tweede.classList = "Bluebtn";
-        derde.classList = "Bluebtn";
+        tweede.classList = "Bluebtn unSelected";
+        derde.classList = "Bluebtn unSelected";
         graad = "1ste graad";
         filterByGraad(1);
     }
@@ -79,8 +81,8 @@ tweede.addEventListener('click', (event) => {
         filterByGraad(0);
     } else {
         tweede.classList = "Bluebtn selected";
-        eerste.classList = "Bluebtn";
-        derde.classList = "Bluebtn";
+        eerste.classList = "Bluebtn unSelected";
+        derde.classList = "Bluebtn unSelected";
         graad = "2de graad";
         filterByGraad(2);
     }
@@ -97,8 +99,8 @@ derde.addEventListener('click', (event) => {
         filterByGraad(0);
     } else {
         derde.classList = "Bluebtn selected";
-        eerste.classList = "Bluebtn";
-        tweede.classList = "Bluebtn";
+        eerste.classList = "Bluebtn unSelected";
+        tweede.classList = "Bluebtn unSelected";
         graad = "3de graad";
         filterByGraad(3);
     }
@@ -177,6 +179,10 @@ fetch("https://competentie-platform-backend.herokuapp.com/api/getLinks")
     });
 
 function filterByGraad(graad) {
+    search.value = null;
+    filteredArray = [];
+    indexSet = [];
+
     let graad1 = "1ste graad";
     let graad2 = "2de graad";
     let graad3 = "3de graad";
@@ -191,6 +197,8 @@ function filterByGraad(graad) {
                     document.getElementById(i).style.display = "none";
                 } else {
                     document.getElementById(i).style.display = "table-row";
+                    filteredArray.push(data[i]);
+                    indexSet.push(i);
                 }
                 break;
             case 2:
@@ -198,6 +206,8 @@ function filterByGraad(graad) {
                     document.getElementById(i).style.display = "none";
                 } else {
                     document.getElementById(i).style.display = "table-row";
+                    filteredArray.push(data[i]);
+                    indexSet.push(i);
                 }
                 break;
             case 3:
@@ -205,22 +215,36 @@ function filterByGraad(graad) {
                     document.getElementById(i).style.display = "none";
                 } else {
                     document.getElementById(i).style.display = "table-row";
+                    filteredArray.push(data[i]);
+                    indexSet.push(i);
                 }
                 break;
             default:
                 break;
         }
     }
+    console.log(filteredArray);
 }
 
 function filterByText(input) {
     let showArr = [];
     let hideArr = [];
-    for (let i = 0; i < data.length; i++) {
-        if (document.getElementById("doelzin" + i).innerText.includes(input) || document.getElementById("comp" + i).innerText.includes(input) || document.getElementById("finaliteit" + i).innerText.includes(input)) {
-            showArr.push(i);
-        } else {
-            hideArr.push(i);
+
+    if (indexSet.length > 0) {
+        for (let i = 0; i < indexSet.length; i++) {
+            if (document.getElementById("doelzin" + indexSet[i]).innerText.toLowerCase().includes(input) || document.getElementById("comp" + indexSet[i]).innerText.toLowerCase().includes(input) || document.getElementById("finaliteit" + indexSet[i]).innerText.toLowerCase().includes(input)) {
+                showArr.push(indexSet[i]);
+            } else {
+                hideArr.push(indexSet[i]);
+            }
+        }
+    } else {
+        for (let i = 0; i < data.length; i++) {
+            if (document.getElementById("doelzin" + i).innerText.toLowerCase().includes(input) || document.getElementById("comp" + i).innerText.toLowerCase().includes(input) || document.getElementById("finaliteit" + i).innerText.toLowerCase().includes(input)) {
+                showArr.push(i);
+            } else {
+                hideArr.push(i);
+            }
         }
     }
 
@@ -279,7 +303,6 @@ function showOrHideForm(state) {
 }
 
 function fillInForm(passedData, hasChecks) {
-    let picked;
     let hoofdstukken = [];
     index = 0;
     pickedArr = [];
@@ -388,7 +411,11 @@ cancel.addEventListener('click', (e) => {
 
 search.addEventListener('input', (e) => {
     e.preventDefault();
-    filterByText(search.value);
+    filterByText(search.value.toLowerCase());
+});
+
+zoeken.addEventListener('submit', (e) => {
+    e.preventDefault();
 });
 
 deleteComp.addEventListener('click', (e) => {

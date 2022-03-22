@@ -104,6 +104,7 @@ p {
     justify-content: flex-end;
 
     flex-grow: 1;
+    margin-left: 2%;
 }
 
 .menu {
@@ -118,7 +119,7 @@ p {
 #rightM {
     width: 280px;
     padding: 0.8em 2%;
-    margin-left: 15%;
+    margin-left: auto;
 
     border: none;
     border-right: 15px solid #F3F3F3;
@@ -279,8 +280,8 @@ p {
         margin-top: 2%;
     }
 
-    #rightM {
-        margin-left: 2%;
+    #headerGroup {
+        margin-left: 0;
     }
 
     .comp {
