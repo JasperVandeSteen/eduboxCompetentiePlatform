@@ -117,7 +117,6 @@ fetch("https://competentie-platform-backend.herokuapp.com/api/getData")
 
         let duplicates = [];
         jsondata.forEach(element => {
-            let count = (element.code.match(new RegExp("\\.", "g")) || []).length;
             let duplicate = false;
 
             let sleutelComp1;
@@ -154,7 +153,7 @@ fetch("https://competentie-platform-backend.herokuapp.com/api/getData")
                 }
             });
 
-            if (count < 2 && !data.includes(element) && !duplicate) {
+            if (!data.includes(element) && !duplicate && finaliteit1 != undefined) {
                 data.push(element);
             } else if (duplicate) {
                 duplicate = false;

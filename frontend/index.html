@@ -186,6 +186,11 @@
                 //      DATA PRESENCE HANDLERS --> IF DATA IS PRESENT, THEN ELEMENT IS CREATED
                 //
                 ///////////////////////////////////////////////////////////////////////////////
+                if (data[comp] == undefined) {
+                    console.log("ERROR HERE:");
+                    console.log(comp);
+                }
+
                 if ("vlaamse_sleutelcompetentie" in data[comp].onderwijsdoelenset) {
                     sleutelComp = data[comp].onderwijsdoelenset.vlaamse_sleutelcompetentie.korte_naam;
                 } else {
@@ -343,7 +348,7 @@
     }
 
     function updateData(passedData) {
-        console.log(passedData);
+        //console.log(passedData);
         passedData.forEach(comp => {
             comp.Hoofdstukken.forEach(hs => {
                 addOrDeleteCompetentie(1, hs, comp.Id);
