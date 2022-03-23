@@ -159,21 +159,7 @@ function loadInData(object) {
             let number;
             let rest;
             let stroomTitel;
-            let uitlegString = `
-                Met inbegrip van kennis
-                Feitenkennis
-                Conceptuele kennis
-                Procedurele kennis
-
-                Met inbegrip van context
-
-                Met inbegrip van tekst kenmerken
-
-                Met inbegrip van dimensies eindterm
-                Cognitieve dimensie
-                Affectieve dimensie
-                Psychomotorische dimensie
-            `;
+            let uitlegString = "<i>°Eindterm is een attitude</i>";
 
             if ("Hoofdstukken" in comp) {
                 let first = true;
