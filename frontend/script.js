@@ -2,6 +2,7 @@ let eerste = document.getElementById("eerste");
 let tweede = document.getElementById("tweede");
 let derde = document.getElementById("derde");
 let rightM = document.getElementById("rightM");
+let inleiding = document.getElementById("inleiding");
 
 let mybutton = document.getElementById("backToTop");
 let file = document.getElementById("file");
@@ -16,6 +17,23 @@ location.search.slice(1).split("&").forEach(function (pair) {
     pair = pair.split("=");
     params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
 });
+
+inleiding.innerHTML = `
+    <p id="inleidingText">Met de <b>${params.title}</b> kan je eindtermen uit verschillende sleutelcompetenties realiseren. <br><br>
+
+    <b>Sleutelcompetenties</b> zijn clusters van inhoudelijk verwante competenties die de <b>leerlingen</b> moeten verwerven
+    om te functioneren in de maatschappij en zich <b>persoonlijk</b> te <b>ontplooien</b>. Het is de uitdrukkelijke bedoeling
+    van de <b>EDUbox</b> om geen koppeling te maken met bestaande vakken maar om zoveel en <b>zo breed mogelijk</b> te
+    verwijzen naar verschillende eindtermen, ook die uit minder voor de handliggende <b>sleutelcompetenties</b>. Op die
+    manier dagen we leerkrachten uit om vanuit <b>verschillende invalshoeken</b> met de aangeboden thema’s van de
+    eduboxen om te gaan. <br><br>
+
+    Hieronder vind je een overzicht van de eindtermen per sleutelcompetentie die deze edubox kan helpen
+    realiseren:</p>
+    <h4 onClick="showOrHideInleiding(0)" class="readMoreLess" id="inleidingBtn">verberg inleiding <i class="fas fa-angle-up"></i></h4>
+`;
+if (params.title != undefined)
+    inleiding.style.display = "block";
 
 ////////////////////////////////////////////////////////   GRAAD SELECTIE
 eerste.addEventListener('click', (event) => {

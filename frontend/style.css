@@ -26,6 +26,13 @@ header {
     justify-content: space-between;
 }
 
+#inleiding {
+    display: none;
+    margin: 3% 5% 0 5%;
+    padding: 2%;
+    background-color: #F3F3F3;
+}
+
 main {
     margin: 5%;
     height: fit-content;
@@ -74,6 +81,11 @@ h4 {
 
 p {
     font-weight: 400;
+}
+
+b {
+    color: #3462AC;
+    font-weight: 700;
 }
 
 #logo {
@@ -244,6 +256,10 @@ p {
     text-align: right;
 
     cursor: pointer;
+}
+
+.left {
+    text-align: left;
 }
 
 .open {

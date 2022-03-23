@@ -40,6 +40,8 @@
         </div>
     </header>
 
+    <section id="inleiding"></section>
+
     <main id="main"></main>
 </body>
 <script>
@@ -63,6 +65,41 @@
 
             extra.style.display = "none";
             btn.style.display = "block";
+        }
+    }
+
+    function showOrHideInleiding(state) {
+        let inleiding = document.getElementById("inleiding");
+
+        if (state == 1) {
+            var params = {};
+            location.search.slice(1).split("&").forEach(function (pair) {
+                pair = pair.split("=");
+                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            });
+
+            inleiding.style.display = "block";
+            inleiding.innerHTML = `
+                <p id="inleidingText">Met de <b>${params.title}</b> kan je eindtermen uit verschillende sleutelcompetenties realiseren. <br><br>
+
+                <b>Sleutelcompetenties</b> zijn clusters van inhoudelijk verwante competenties die de <b>leerlingen</b> moeten verwerven
+                om te functioneren in de maatschappij en zich <b>persoonlijk</b> te <b>ontplooien</b>. Het is de uitdrukkelijke bedoeling
+                van de <b>EDUbox</b> om geen koppeling te maken met bestaande vakken maar om zoveel en <b>zo breed mogelijk</b> te
+                verwijzen naar verschillende eindtermen, ook die uit minder voor de handliggende <b>sleutelcompetenties</b>. Op die
+                manier dagen we leerkrachten uit om vanuit <b>verschillende invalshoeken</b> met de aangeboden thema’s van de
+                eduboxen om te gaan. <br><br>
+
+                Hieronder vind je een overzicht van de eindtermen per sleutelcompetentie die deze edubox kan helpen
+                realiseren:</p>
+                <h4 onClick="showOrHideInleiding(0)" class="readMoreLess" id="inleidingBtn">verberg inleiding <i class="fas fa-angle-up"></i></h4>
+            `;
+        }
+
+        if (state == 0) {
+            inleiding.style.display = "inline-block";
+            inleiding.innerHTML = `
+                <h4 onClick="showOrHideInleiding(1)" class="readMoreLess left" id="inleidingBtn">toon inleiding <i class="fas fa-angle-down"></i></h4>
+            `;
         }
     }
 </script>
