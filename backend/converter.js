@@ -144,7 +144,7 @@ var j = schedule.scheduleJob('0 0 * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    res.send("server is up and running... V5.2 --- Last data update was at: " + date)
+    res.send("server is up and running... V5.3.2 --- Last data update was at: " + date)
 });
 
 app.use('/api', bgRouter);
