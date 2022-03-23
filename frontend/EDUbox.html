@@ -79,6 +79,7 @@
             });
 
             inleiding.style.display = "block";
+            inleiding.style.padding = "2%";
             inleiding.innerHTML = `
                 <p id="inleidingText">Met de <b>${params.title}</b> kan je eindtermen uit verschillende sleutelcompetenties realiseren. <br><br>
 
@@ -97,6 +98,7 @@
 
         if (state == 0) {
             inleiding.style.display = "inline-block";
+            inleiding.style.padding = "1.5%";
             inleiding.innerHTML = `
                 <h4 onClick="showOrHideInleiding(1)" class="readMoreLess left" id="inleidingBtn">toon inleiding <i class="fas fa-angle-down"></i></h4>
             `;
