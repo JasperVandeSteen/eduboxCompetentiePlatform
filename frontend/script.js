@@ -1,3 +1,4 @@
+let main = document.getElementById("main");
 let eerste = document.getElementById("eerste");
 let tweede = document.getElementById("tweede");
 let derde = document.getElementById("derde");
@@ -32,8 +33,11 @@ inleiding.innerHTML = `
     realiseren:</p>
     <h4 onClick="showOrHideInleiding(0)" class="readMoreLess" id="inleidingBtn">verberg inleiding <i class="fas fa-angle-up"></i></h4>
 `;
-if (params.title != undefined)
+if (params.title != undefined) {
     inleiding.style.display = "block";
+} else {
+    main.innerHTML = "<h1 class='red'>Link is ongeldig of de EDUbox die je zoekt bestaat niet meer :(</h1>"
+}
 
 ////////////////////////////////////////////////////////   GRAAD SELECTIE
 eerste.addEventListener('click', (event) => {
@@ -50,7 +54,8 @@ eerste.addEventListener('click', (event) => {
     `;
 
     graad = "1ste graad";
-    loadInData(data);
+    if (data)
+        loadInData(data);
 });
 
 tweede.addEventListener('click', (event) => {
@@ -68,7 +73,8 @@ tweede.addEventListener('click', (event) => {
     `;
 
     graad = "2de graad";
-    loadInData(data);
+    if (data)
+        loadInData(data);
 });
 
 derde.addEventListener('click', (event) => {
@@ -86,7 +92,8 @@ derde.addEventListener('click', (event) => {
     `;
 
     graad = "3de graad";
-    loadInData(data);
+    if (data)
+        loadInData(data);
 });
 ////////////////////////////////////////////////////////   
 
@@ -267,6 +274,10 @@ fetch("https://competentie-platform-backend.herokuapp.com/api/getEdubox/" + para
         console.log(jsondata);
         data = jsondata;
         loadInData(data);
+    }).catch(err => {
+        console.error(err);
+        inleiding.style.display = "none";
+        main.innerHTML = "<h1 class='red'>Link is ongeldig of de EDUbox die je zoekt bestaat niet meer :(</h1>"
     });
 
 // When the user scrolls down 20px from the top of the document, show the button
